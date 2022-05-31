@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use Alert;
 
 use App\User;
+use App\http\Requests\Admin\UserStoreRequest;
 
 class UserController extends Controller
 {
@@ -26,6 +28,9 @@ class UserController extends Controller
                     $pic = $row->photo ?? 'https://ui-avatars.com/api/?name='.$row->name;
                     return $photo = '<img src="'.$pic .'" class="img-circle" alt="User Image" style="height: 30px; width: 30px;">';
                 })
+                ->addColumn('created_at', function ($row) {
+                    return $row->created_at->diffForHumans();
+                })
                 ->addColumn('status', function ($row) {
                     if($row->status === 'active') {
                         return '<span class="badge badge-success">'.$row->status.'</span>';
@@ -35,7 +40,7 @@ class UserController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     $edit = '<a href="'.route('admin.users.edit', $row->id).'" class="btn btn-default btn-sm"><i class="fas fa-edit"></i> </a>'; 
-                    $delete = '<a href="javascript:void(0)" id="delete-button" data-id="'.$row->id.'" class="btn btn-default btn-sm mx-2"><i class="fas fa-trash"></i></a>'; 
+                    $delete = '<a href="javascript:void(0)" onclick="delete_user('.$row->id.')" class="btn btn-default btn-sm mx-2"><i class="fas fa-trash"></i></a>';
                     return $edit.$delete;
                 })
                 ->rawColumns(['photo', 'status', 'action'])
@@ -51,7 +56,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('_admin.account.users.create');
     }
 
     /**
@@ -60,9 +65,14 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        //
+        $data               = $request->all();
+        $data['password']   = bcrypt($request->password);
+        User::create($data);
+        
+        Alert::success('Sukses', 'Data pengguna berhasil ditambahkan');
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -98,6 +108,7 @@ class UserController extends Controller
     {
         $user->update(['status' => $request->status]);   
 
+        Alert::success('Sukses', 'Data pengguna berhasil diperbaharui');
         return redirect()->route('admin.users.index');
     }
 
@@ -107,8 +118,12 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return response()->json([
+            'message' => 'success'
+        ]);
     }
 }

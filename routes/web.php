@@ -134,7 +134,7 @@ Route::get('payment/success', 'PayPalController@success')->name('payment.success
 Route::group(['prefix'=>'admin', 'as' => 'admin.', 'middleware'=>['auth','admin']],function(){
 
     //AKUN
-    Route::resource('users', 'Admin\UserController');
+    Route::resource('users', 'Admin\UserController')->except(['show']);
     //SETTING
     Route::resource('settings','Admin\SettingController')->only(['index', 'update']);
 });

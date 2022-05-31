@@ -29,6 +29,27 @@
                 @endslot
 
                 @slot('formContent')
+                    <div class="row">
+                        <div class="col-12 text-center mb-2">
+                            <img src="{{ $user->photo ?? 'https://ui-avatars.com/api/?name='.$user->name }}" class="img-circle text-center" alt="img">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Nama<span class="text-danger">*</span></label>
+                        <input disabled type="text" class="form-control" name="name" value="{{ $user->name }}">
+                    </div>
+                    <div class="form-group">
+                        <label>E-Mail<span class="text-danger">*</span></label>
+                        <input disabled type="text" class="form-control" name="email" value="{{ $user->email }}">
+                    </div>
+                    <div class="form-group">
+                        <label>No. Telepon<span class="text-danger">*</span></label>
+                        <input disabled type="number" class="form-control" name="phone"  value="{{ $user->phone }}">
+                    </div>
+                    <div class="form-group">
+                        <label>Tanggal Daftar<span class="text-danger">*</span></label>
+                        <input disabled type="text" class="form-control" name="created_at" value="{{ $user->created_at->format('d F Y H:i:s') }}">
+                    </div>
                     <div class="form-group">
                         <label>Status<span class="text-danger">*</span></label>
                         <select class="custom-select" name="status">

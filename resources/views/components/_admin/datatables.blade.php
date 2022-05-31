@@ -1,6 +1,6 @@
 <div>
-    <table id="datatables" class="table table-bordered table-striped">
-        <thead>
+    <table id="datatables" class="table table-bordered">
+        <thead class="text-white" style="background-color: #DEB886;">
             <tr>
                 <th style="width: 5%;">#</th>
                 {{ $columns }}

@@ -1,7 +1,7 @@
-<aside class="main-sidebar sidebar-dark-lightblue elevation-4">
+<aside class="main-sidebar sidebar-light-gray elevation-4">
     <!-- Brand Logo -->
-    <a href="" class="brand-link text-center bg-lightblue">
-        <span class="brand-text font-weight-light text-center">Rottan-Shop</span>
+    <a href="" class="brand-link text-center" style="color: #DEB886;">
+        <span class="brand-text font-weight-bold text-center">Rottan-Shop</span>
     </a>
 
     <!-- Sidebar -->
@@ -28,7 +28,76 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link ">
+                        <i class="nav-icon fas fa-sticky-note"></i>
+                        <p>Laporan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="" class="nav-link ">
+                        <i class="nav-icon fas fa-envelope"></i>
+                        <p>Pesan</p>
+                    </a>
+                </li>
+
+                <li class="nav-header">TRANSAKSI</li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-shopping-cart"></i>
+                        <p>Pesanan <i class="fas fa-angle-left right"></i></p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.users.index') }}" class="nav-link @if(Route::currentRouteName()==='admin.users.index') active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Baru</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.users.index') }}" class="nav-link @if(Route::currentRouteName()==='admin.users.index') active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Proses</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.users.index') }}" class="nav-link @if(Route::currentRouteName()==='admin.users.index') active @endif">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Selesai</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.users.index') }}" class="nav-link">
+                      <i class="nav-icon fas fa-shipping-fast"></i>
+                      <p>Pengiriman</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.users.index') }}" class="nav-link">
+                      <i class="nav-icon fas fa-comments"></i>
+                      <p>Ulasan</p>
+                    </a>
+                </li>
+
                 <li class="nav-header">MASTER DATA</li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.users.index') }}" class="nav-link">
+                      <i class="nav-icon fa fa-list-alt"></i>
+                      <p>Kategori</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.users.index') }}" class="nav-link">
+                      <i class="nav-icon fas fa-box"></i>
+                      <p>Produk</p>
+                    </a>
+                </li>
                 
                 <li class="nav-header">AKUN</li>
                 <li class="nav-item">
@@ -37,19 +106,27 @@
                       <p>Pengguna</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="#" class="nav-link">
                       <i class="nav-icon fas fa-user"></i>
                       <p>Admin</p>
                     </a>
-                </li>
+                </li> --}}
+
                 <li class="nav-header">WEBSITE</li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.settings.index') }}" class="nav-link">
+                      <i class="nav-icon fas fa-bullhorn"></i>
+                      <p>Banner</p>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.settings.index') }}" class="nav-link">
                       <i class="nav-icon fas fa-cog"></i>
                       <p>Pengaturan</p>
                     </a>
                 </li>
+
             </ul>
         </nav>
     </div>

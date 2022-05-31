@@ -5,10 +5,12 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','role','photo','status','provider','provider_id',
+        'name', 'email', 'phone', 'password', 'role','photo','status','provider','provider_id',
     ];
 
     /**
@@ -37,10 +39,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getCreatedAtAttribute($value)
-    {
-        return \Carbon\Carbon::parse($value)->diffForHumans();
-    }
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     public function orders(){
         return $this->hasMany('App\Models\Order');

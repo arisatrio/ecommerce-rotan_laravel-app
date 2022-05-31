@@ -203,11 +203,11 @@
           <span>Coupon</span></a>
     </li> --}}
      <!-- Users -->
-     <li class="nav-item">
+     {{-- <li class="nav-item">
         <a class="nav-link" href="{{route('users.index')}}">
             <i class="fas fa-users"></i>
             <span>Users</span></a>
-    </li>
+    </li> --}}
      <!-- General settings -->
      
 
