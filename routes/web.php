@@ -133,7 +133,9 @@ Route::get('payment/success', 'PayPalController@success')->name('payment.success
 
 Route::group(['prefix'=>'admin', 'as' => 'admin.', 'middleware'=>['auth','admin']],function(){
 
-    //AKUN
+    //CATEGORY
+    Route::resource('category', 'Admin\ProductCategoryController')->except(['show']);
+    //ACCOUNT
     Route::resource('users', 'Admin\UserController')->except(['show']);
     //SETTING
     Route::resource('settings','Admin\SettingController')->only(['index', 'update']);
@@ -157,7 +159,7 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     Route::get('/profile','AdminController@profile')->name('admin-profile');
     Route::post('/profile/{id}','AdminController@profileUpdate')->name('profile-update');
     // Category
-    Route::resource('/category','CategoryController');
+    //Route::resource('/category','CategoryController');
     // Product
     Route::resource('/product','ProductController');
     // Ajax for sub category

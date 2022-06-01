@@ -88,30 +88,30 @@
                 <li class="nav-header">MASTER DATA</li>
                 <li class="nav-item">
                     <a href="{{ route('admin.users.index') }}" class="nav-link">
-                      <i class="nav-icon fa fa-list-alt"></i>
-                      <p>Kategori</p>
+                      <i class="nav-icon fas fa-box"></i>
+                      <p>Produk</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.users.index') }}" class="nav-link">
-                      <i class="nav-icon fas fa-box"></i>
-                      <p>Produk</p>
+                    <a href="{{ route('admin.category.index') }}" class="nav-link {{  Route::is('admin.category.*') ? 'active' : ''  }}">
+                      <i class="nav-icon fa fa-list-alt"></i>
+                      <p>Kategori</p>
                     </a>
                 </li>
                 
                 <li class="nav-header">AKUN</li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.users.index') }}" class="nav-link">
+                    <a href="{{ route('admin.users.index') }}" class="nav-link {{  Route::is('admin.users.*') ? 'active' : ''  }}">
                       <i class="nav-icon fas fa-users"></i>
                       <p>Pengguna</p>
                     </a>
                 </li>
-                {{-- <li class="nav-item">
+                <li class="nav-item">
                     <a href="#" class="nav-link">
                       <i class="nav-icon fas fa-user"></i>
                       <p>Admin</p>
                     </a>
-                </li> --}}
+                </li>
 
                 <li class="nav-header">WEBSITE</li>
                 <li class="nav-item">
@@ -121,7 +121,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.settings.index') }}" class="nav-link">
+                    <a href="{{ route('admin.settings.index') }}" class="nav-link {{  Route::is('admin.settings.*') ? 'active' : ''  }}">
                       <i class="nav-icon fas fa-cog"></i>
                       <p>Pengaturan</p>
                     </a>
