@@ -133,11 +133,13 @@ Route::get('payment/success', 'PayPalController@success')->name('payment.success
 
 Route::group(['prefix'=>'admin', 'as' => 'admin.', 'middleware'=>['auth','admin']],function(){
 
-    //CATEGORY
+    //PRODUCT
     Route::resource('category', 'Admin\ProductCategoryController')->except(['show']);
     //ACCOUNT
     Route::resource('users', 'Admin\UserController')->except(['show']);
-    //SETTING
+    Route::resource('admins', 'Admin\UserAdminController')->except(['show']);
+    //WEBSITE
+    Route::resource('banner','Admin\BannerController');
     Route::resource('settings','Admin\SettingController')->only(['index', 'update']);
 });
 
@@ -149,17 +151,10 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     Route::get('/file-manager',function(){
         return view('backend.layouts.file-manager');
     })->name('file-manager');
-    // user route
-    // Route::resource('users','UsersController');
-    // Banner
-    Route::resource('banner','BannerController');
-    // Brand
     Route::resource('brand','BrandController');
     // Profile
     Route::get('/profile','AdminController@profile')->name('admin-profile');
     Route::post('/profile/{id}','AdminController@profileUpdate')->name('profile-update');
-    // Category
-    //Route::resource('/category','CategoryController');
     // Product
     Route::resource('/product','ProductController');
     // Ajax for sub category
@@ -180,9 +175,6 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     Route::resource('/shipping','ShippingController');
     // Coupon
     Route::resource('/coupon','CouponController');
-    // Settings
-    // Route::get('settings','AdminController@settings')->name('settings');
-    // Route::post('setting/update','AdminController@settingsUpdate')->name('settings.update');
 
     // Notification
     Route::get('/notification/{id}','NotificationController@show')->name('admin.notification');

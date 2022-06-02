@@ -75,6 +75,7 @@
 
                 </div>
                 <div class="card-footer">
+                    <small>Terakhir diperbaharui <i>{{ $data->updated_at->format('d F Y H:i:s') }}</i> oleh <i>{{ $data->createdBy->name }}</i></small>
                     <button type="submit" class="btn btn-primary float-right">Simpan</button>
                 </div>
             </form>

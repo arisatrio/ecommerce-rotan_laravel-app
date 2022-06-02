@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
 use Illuminate\Support\Str;
 
 class ProductCategory extends Model
@@ -31,7 +30,7 @@ class ProductCategory extends Model
             $count = static::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
 
             $model->slug = $count ? "{$slug}-{$count}" : $slug;
-            if($count > 0) {
+            if($count == 0) {
                 $model->user_id  = auth()->user()->id;
             }
         });

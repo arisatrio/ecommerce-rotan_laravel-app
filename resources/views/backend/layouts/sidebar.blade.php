@@ -33,7 +33,7 @@
             <i class="fas fa-fw fa-chart-area"></i>
             <span>Media Manager</span></a>
     </li>
-
+{{-- 
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
         <i class="fas fa-image"></i>
@@ -46,7 +46,7 @@
           <a class="collapse-item" href="{{route('banner.create')}}">Add Banners</a>
         </div>
       </div>
-    </li>
+    </li> --}}
     <!-- Divider -->
     <hr class="sidebar-divider">
         <!-- Heading -->
@@ -55,7 +55,7 @@
         </div>
 
     <!-- Categories -->
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#categoryCollapse" aria-expanded="true" aria-controls="categoryCollapse">
           <i class="fas fa-sitemap"></i>
           <span>Category</span>
@@ -67,7 +67,7 @@
             <a class="collapse-item" href="{{route('category.create')}}">Add Category</a>
           </div>
         </div>
-    </li>
+    </li> --}}
     {{-- Products --}}
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#productCollapse" aria-expanded="true" aria-controls="productCollapse">

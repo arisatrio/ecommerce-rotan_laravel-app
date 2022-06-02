@@ -107,7 +107,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('admin.admins.index') }}" class="nav-link {{  Route::is('admin.admins.*') ? 'active' : ''  }}">
                       <i class="nav-icon fas fa-user"></i>
                       <p>Admin</p>
                     </a>
@@ -115,7 +115,7 @@
 
                 <li class="nav-header">WEBSITE</li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.settings.index') }}" class="nav-link">
+                    <a href="{{ route('admin.banner.index') }}" class="nav-link {{  Route::is('admin.banner.*') ? 'active' : ''  }}">
                       <i class="nav-icon fas fa-bullhorn"></i>
                       <p>Banner</p>
                     </a>
