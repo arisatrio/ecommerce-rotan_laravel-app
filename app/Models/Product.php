@@ -49,7 +49,7 @@ class Product extends Model
         $disc = ((float)$this->attributes['price'] * (float)$this->attributes['discount'])/100;
         $discountPrice = (float)$this->attributes['price'] - $disc;
         
-        return 'Rp. '.$discountPrice;
+        return 'Rp. '.number_format($discountPrice);
     }
 
     public function getDiscountAttribute($value)

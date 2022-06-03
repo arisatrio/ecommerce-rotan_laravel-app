@@ -87,43 +87,43 @@
             ]
         });
 
-        // function delete_category(e) {
-        //     var url = '{{ route("admin.category.destroy", ":id") }}';
-        //     url = url.replace(':id', e);
-        //     console.log(url);
+        function delete_product(e) {
+            var url = '{{ route("admin.product.destroy", ":id") }}';
+            url = url.replace(':id', e);
+            console.log(url);
 
-        //     $.ajaxSetup({
-        //         headers: {
-        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         }
-        //     });
-        //     Swal.fire({
-        //         title             : "Hapus Data",
-        //         text              : "Apakah Anda yakin akan hapus data ini!?",
-        //         icon              : "warning",
-        //         showCancelButton  : true,
-        //         confirmButtonColor: "#3085d6",
-        //         cancelButtonColor : "#d33",
-        //         confirmButtonText : "Ya, Hapus!"
-        //     }).then((result) => {
-        //         if (result.value) {
-        //             $.ajax({
-        //                 url    : url,
-        //                 type   : "delete",
-        //                 success: function(data) {
-        //                     $('#datatables').DataTable().ajax.reload();
-        //                     Swal.fire({
-        //                         position: 'top-end',
-        //                         icon: 'success',
-        //                         title: 'Data berhasil dihapus',
-        //                         showConfirmButton: false,
-        //                         timer: 1500
-        //                     });
-        //                 }
-        //             })
-        //         }
-        //     })
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            Swal.fire({
+                title             : "Hapus Data",
+                text              : "Apakah Anda yakin akan hapus data ini!?",
+                icon              : "warning",
+                showCancelButton  : true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor : "#d33",
+                confirmButtonText : "Ya, Hapus!"
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url    : url,
+                        type   : "delete",
+                        success: function(data) {
+                            $('#datatables').DataTable().ajax.reload();
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Data berhasil dihapus',
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                        }
+                    })
+                }
+            })
 
-        // }
+        }
    </script>
 @endpush

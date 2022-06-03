@@ -8,6 +8,7 @@ use Yajra\DataTables\DataTables;
 use Alert;
 
 use App\Http\Requests\Admin\ProductStoreRequest;
+use App\Http\Requests\Admin\ProductUpdateRequest;
 use App\Models\ProductCategory;
 use App\Models\Product;
 use App\Models\ProductPhotos;
@@ -43,8 +44,8 @@ class ProductController extends Controller
                     }
                 })
                 ->addColumn('action', function ($row) {
-                    $edit = '<a href="'.route('admin.banner.edit', $row->id).'" class="btn btn-default btn-sm"><i class="fas fa-edit"></i> </a>'; 
-                    $delete = '<a href="javascript:void(0)" onclick="delete_banner('.$row->id.')" class="btn btn-default btn-sm mx-2"><i class="fas fa-trash"></i></a>';
+                    $edit = '<a href="'.route('admin.product.edit', $row->id).'" class="btn btn-default btn-sm"><i class="fas fa-edit"></i> </a>'; 
+                    $delete = '<a href="javascript:void(0)" onclick="delete_product('.$row->id.')" class="btn btn-default btn-sm mx-2"><i class="fas fa-trash"></i></a>';
                     return $edit.$delete;
                 })
                 ->rawColumns(['photo', 'discount', 'category', 'status', 'action'])
@@ -115,9 +116,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        $categories = ProductCategory::active()->get();
+
+        return view('_admin.product.edit', compact('categories', 'product'));
     }
 
     /**
@@ -127,9 +130,33 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductUpdateRequest $request, Product $product)
     {
-        //
+        $product->update($request->validated());
+
+        if($request->primary_photo) {
+            $photosRequest  = collect($request->validated())->only(['primary_photo']);
+            $photos         = collect($photosRequest);
+            $primaryPhoto   = $product->productPhotos->where('is_primary', 1)->first();
+            $primaryPhoto->update([
+                'photo'         => $photos['primary_photo'],
+            ]);
+        }
+        if($request->photos) {
+            $photosRequest  = collect($request->validated())->only(['photos']);
+            $photos         = collect(explode(',', $photosRequest['photos']));
+            $productPhotos  = $product->productPhotos()->where('is_primary', 0)->get();
+            foreach($photos as $p) {
+                foreach($productPhotos as $prod) {
+                    $prod->update([
+                        'photo' => $p,
+                    ]);
+                }
+            }
+        }
+
+        Alert::success('Sukses', 'Data Produk berhasil diperbaharui');
+        return redirect()->route('admin.product.index');
     }
 
     /**
@@ -138,8 +165,12 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        $product->delete();
+
+        return response()->json([
+            'message'   => 'success'
+        ]);
     }
 }

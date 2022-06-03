@@ -28,12 +28,12 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="" class="nav-link ">
                         <i class="nav-icon fas fa-sticky-note"></i>
                         <p>Laporan</p>
                     </a>
-                </li>
+                </li> --}}
                 <li class="nav-item">
                     <a href="{{ route('admin.message.index') }}" class="nav-link {{  Route::is('admin.message.*') ? 'active' : ''  }}">
                         <i class="nav-icon fas fa-envelope"></i>
@@ -96,6 +96,12 @@
                     <a href="{{ route('admin.category.index') }}" class="nav-link {{  Route::is('admin.category.*') ? 'active' : ''  }}">
                       <i class="nav-icon fa fa-list-alt"></i>
                       <p>Kategori</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.shipping.index') }}" class="nav-link {{  Route::is('admin.shipping.*') ? 'active' : ''  }}">
+                      <i class="nav-icon fa fa-truck"></i>
+                      <p>Ekspedisi</p>
                     </a>
                 </li>
                 

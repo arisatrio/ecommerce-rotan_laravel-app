@@ -136,8 +136,9 @@ Route::group(['prefix'=>'admin', 'as' => 'admin.', 'middleware'=>['auth','admin'
     //MESSAGES
     Route::resource('message', 'Admin\MessageController')->only(['index', 'show', 'delete']);
     //PRODUCT
-    Route::resource('product', 'Admin\ProductController');
+    Route::resource('product', 'Admin\ProductController')->except(['show']);
     Route::resource('category', 'Admin\ProductCategoryController')->except(['show']);
+    Route::resource('shipping', 'Admin\ShippingController')->except(['show']);
     //ACCOUNT
     Route::resource('users', 'Admin\UserController')->except(['show']);
     Route::resource('admins', 'Admin\UserAdminController')->except(['show']);
@@ -174,10 +175,6 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
 
     // Order
     Route::resource('/order','OrderController');
-    // Shipping
-    Route::resource('/shipping','ShippingController');
-    // Coupon
-    Route::resource('/coupon','CouponController');
 
     // Notification
     Route::get('/notification/{id}','NotificationController@show')->name('admin.notification');
