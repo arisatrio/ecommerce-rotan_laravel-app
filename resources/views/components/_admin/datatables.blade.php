@@ -4,7 +4,8 @@
             <tr>
                 <th style="width: 5%;">#</th>
                 {{ $columns }}
-                <th style="width: 15%;">Action</th>
+                <th style="width: 10%;">Status</th>
+                <th style="width: 10%;">Action</th>
             </tr>
         </thead>
         <tbody>

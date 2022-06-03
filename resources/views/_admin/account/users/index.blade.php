@@ -34,7 +34,6 @@
                             <th>No. Telepon</th>
                             <th>Foto</th>
                             <th>Tanggal Daftar</th>
-                            <th>Status</th>
                         @endslot
                     </x-_admin.datatables>
                 </div>
@@ -68,11 +67,15 @@
             ],
             columnDefs: [
                 {
-                    "targets": 3,
+                    "targets": 4,
                     "className": "text-center",
                 },
                 {
                     "targets": 6,
+                    "className": "text-center",
+                },
+                {
+                    "targets": 7,
                     "className": "text-center",
                 },
             ]

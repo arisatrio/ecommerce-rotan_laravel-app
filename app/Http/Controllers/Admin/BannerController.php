@@ -70,8 +70,7 @@ class BannerController extends Controller
      */
     public function store(BannerRequest $request)
     {
-        $data = $request->all();
-        Banner::create($data);
+        Banner::create($request->validated());
 
         Alert::success('Sukses', 'Data Banner berhasil ditambahkan');
         return redirect()->route('admin.banner.index');
@@ -108,8 +107,7 @@ class BannerController extends Controller
      */
     public function update(BannerRequest $request, Banner $banner)
     {
-        $data = $request->all();
-        $banner->update($data);
+        $banner->update($request->validated());
 
         Alert::success('Sukses', 'Data Banner berhasil diperbaharui');
         return redirect()->route('admin.banner.index');

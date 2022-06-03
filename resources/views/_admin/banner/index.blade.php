@@ -32,7 +32,6 @@
                             <th>Judul</th>
                             <th>Deskripsi</th>
                             <th>Foto</th>
-                            <th style="width: 5%;">Status</th>
                             <th style="width: 10%;">Oleh</th>
                         @endslot
                     </x-_admin.datatables>

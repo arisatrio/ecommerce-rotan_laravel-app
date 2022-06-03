@@ -3,47 +3,87 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Cart;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
+
 class Product extends Model
 {
-    protected $fillable=['title','slug','summary','description','cat_id','child_cat_id','price','brand_id','discount','status','photo','size','stock','is_featured','condition'];
+    use softDeletes;
 
-    public function cat_info(){
-        return $this->hasOne('App\Models\Category','id','cat_id');
+    protected $fillable = [
+        'name',
+        'product_category_id',
+        'slug',
+        'summary',
+        'description',
+        'stock',
+        'price',
+        'discount',
+        'dimension',
+        'is_featured',
+        'status',
+        'user_id',
+    ];
+
+    protected $appends = ['discountPrice'];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $slug   = Str::slug($model->name);
+            $count  = static::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+
+            $model->slug = $count ? "{$slug}-{$count}" : $slug;
+        });
     }
-    public function sub_cat_info(){
-        return $this->hasOne('App\Models\Category','id','child_cat_id');
+
+    public function getPriceAttribute($value)
+    {
+        return 'Rp. '.number_format($value);
     }
-    public static function getAllProduct(){
-        return Product::with(['cat_info','sub_cat_info'])->orderBy('id','desc')->paginate(10);
+
+    public function getDiscountPriceAttribute($value)
+    {
+        $disc = ((float)$this->attributes['price'] * (float)$this->attributes['discount'])/100;
+        $discountPrice = (float)$this->attributes['price'] - $disc;
+        
+        return 'Rp. '.$discountPrice;
     }
-    public function rel_prods(){
-        return $this->hasMany('App\Models\Product','cat_id','cat_id')->where('status','active')->orderBy('id','DESC')->limit(8);
-    }
-    public function getReview(){
-        return $this->hasMany('App\Models\ProductReview','product_id','id')->with('user_info')->where('status','active')->orderBy('id','DESC');
-    }
-    public static function getProductBySlug($slug){
-        return Product::with(['cat_info','rel_prods','getReview'])->where('slug',$slug)->first();
-    }
-    public static function countActiveProduct(){
-        $data=Product::where('status','active')->count();
-        if($data){
-            return $data;
+
+    public function getDiscountAttribute($value)
+    {
+        if ($value != NULL) {
+            return $value.'%';
+        } else {
+            return '-%';
         }
-        return 0;
     }
 
-    public function carts(){
-        return $this->hasMany(Cart::class)->whereNotNull('order_id');
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
     }
 
-    public function wishlists(){
-        return $this->hasMany(Wishlist::class)->whereNotNull('cart_id');
+    public function createdBy()
+    {
+        return $this->belongsTo('App\User', 'user_id');
     }
 
-    public function brand(){
-        return $this->hasOne(Brand::class,'id','brand_id');
+    public function category()
+    {
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
     }
 
+    public function productPhotos()
+    {
+        return $this->hasMany(ProductPhotos::class);
+    }
+
+    public function productPhotosPrimary()
+    {
+        return $this->hasOne(ProductPhotos::class)->where('is_primary', 1)->latest();
+    }
+    
 }

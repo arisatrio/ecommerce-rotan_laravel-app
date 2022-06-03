@@ -34,7 +34,6 @@
                             <th>No. Telepon</th>
                             <th>Foto</th>
                             <th>Tanggal Daftar</th>
-                            <th style="width: 10%;">Status</th>
                         @endslot
                     </x-_admin.datatables>
                 </div>

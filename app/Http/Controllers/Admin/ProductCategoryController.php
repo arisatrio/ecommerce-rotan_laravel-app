@@ -21,7 +21,7 @@ class ProductCategoryController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()) {
-            $data = ProductCategory::with(['parent', 'createdBy'])->orderBy('parent_id')->get();
+            $data = ProductCategory::with(['parent', 'createdBy', 'product'])->orderBy('parent_id')->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -38,6 +38,9 @@ class ProductCategoryController extends Controller
                     } else {
                         return '-';
                     }
+                })
+                ->addColumn('totalProduct', function ($row) {
+                    return $row->product->count();
                 })
                 ->addColumn('created_by', function ($row) {
                     return $row->createdBy->name;
@@ -80,8 +83,7 @@ class ProductCategoryController extends Controller
      */
     public function store(ProductCategoryRequest $request)
     {
-        $data = $request->all();
-        ProductCategory::create($data);
+        ProductCategory::create($request->validated());
 
         Alert::success('Sukses', 'Data Kategori Produk berhasil ditambahkan');
         return redirect()->route('admin.category.index');
@@ -120,8 +122,7 @@ class ProductCategoryController extends Controller
      */
     public function update(ProductCategoryRequest $request, ProductCategory $category)
     {
-        $data = $request->all();;
-        $category->update($data);
+        $category->update($request->validated());
 
         Alert::success('Sukses', 'Data kategori produk berhasil diperbaharui');
         return redirect()->route('admin.category.index');

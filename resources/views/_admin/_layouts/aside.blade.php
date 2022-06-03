@@ -23,7 +23,7 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="" class="nav-link ">
+                    <a href="{{ route('admin') }}" class="nav-link {{  Route::is('admin') ? 'active' : ''  }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>
@@ -35,9 +35,9 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="" class="nav-link ">
+                    <a href="{{ route('admin.message.index') }}" class="nav-link {{  Route::is('admin.message.*') ? 'active' : ''  }}">
                         <i class="nav-icon fas fa-envelope"></i>
-                        <p>Pesan</p>
+                        <p>Pesan</p> @if($unreadMessages->count() > 0)<span class="badge badge-danger">{{ $unreadMessages->count() }}</span>@endif
                     </a>
                 </li>
 
@@ -49,7 +49,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('admin.users.index') }}" class="nav-link @if(Route::currentRouteName()==='admin.users.index') active @endif">
+                            <a href="{{ route('admin.users.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Baru</p>
                             </a>
@@ -57,7 +57,7 @@
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('admin.users.index') }}" class="nav-link @if(Route::currentRouteName()==='admin.users.index') active @endif">
+                            <a href="{{ route('admin.users.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Proses</p>
                             </a>
@@ -65,7 +65,7 @@
                     </ul>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('admin.users.index') }}" class="nav-link @if(Route::currentRouteName()==='admin.users.index') active @endif">
+                            <a href="{{ route('admin.users.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Selesai</p>
                             </a>
@@ -87,7 +87,7 @@
 
                 <li class="nav-header">MASTER DATA</li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.users.index') }}" class="nav-link">
+                    <a href="{{ route('admin.product.index') }}" class="nav-link {{  Route::is('admin.product.*') ? 'active' : ''  }}">
                       <i class="nav-icon fas fa-box"></i>
                       <p>Produk</p>
                     </a>

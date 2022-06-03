@@ -133,7 +133,10 @@ Route::get('payment/success', 'PayPalController@success')->name('payment.success
 
 Route::group(['prefix'=>'admin', 'as' => 'admin.', 'middleware'=>['auth','admin']],function(){
 
+    //MESSAGES
+    Route::resource('message', 'Admin\MessageController')->only(['index', 'show', 'delete']);
     //PRODUCT
+    Route::resource('product', 'Admin\ProductController');
     Route::resource('category', 'Admin\ProductCategoryController')->except(['show']);
     //ACCOUNT
     Route::resource('users', 'Admin\UserController')->except(['show']);
@@ -148,25 +151,25 @@ Route::group(['prefix'=>'admin', 'as' => 'admin.', 'middleware'=>['auth','admin'
 Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     Route::get('/','AdminController@index')->name('admin');
     Route::get('/home-2','AdminController@index2');
-    Route::get('/file-manager',function(){
-        return view('backend.layouts.file-manager');
-    })->name('file-manager');
+    // Route::get('/file-manager',function(){
+    //     return view('backend.layouts.file-manager');
+    // })->name('file-manager');
     Route::resource('brand','BrandController');
     // Profile
     Route::get('/profile','AdminController@profile')->name('admin-profile');
     Route::post('/profile/{id}','AdminController@profileUpdate')->name('profile-update');
     // Product
-    Route::resource('/product','ProductController');
+    //Route::resource('/product','ProductController');
     // Ajax for sub category
     Route::post('/category/{id}/child','CategoryController@getChildByParent');
     // POST category
     Route::resource('/post-category','PostCategoryController');
-    // Post tag
-    Route::resource('/post-tag','PostTagController');
-    // Post
-    Route::resource('/post','PostController');
+    // // Post tag
+    // Route::resource('/post-tag','PostTagController');
+    // // Post
+    // Route::resource('/post','PostController');
     // Message
-    Route::resource('/message','MessageController');
+    //Route::resource('/message','MessageController');
     Route::get('/message/five','MessageController@messageFive')->name('messages.five');
 
     // Order

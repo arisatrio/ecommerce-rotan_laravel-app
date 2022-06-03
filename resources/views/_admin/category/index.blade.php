@@ -32,8 +32,8 @@
                             <th>Parent</th>
                             <th>Nama</th>
                             <th>Foto</th>
+                            <th style="width: 15%;">Total Produk</th>
                             <th>Oleh</th>
-                            <th>Status</th>
                         @endslot
                     </x-_admin.datatables>
                 </div>
@@ -60,10 +60,29 @@
                 {data: 'parent_id', name: 'parent_id'},
                 {data: 'name', name: 'name'},
                 {data: 'photo', name: 'photo'},
+                {data: 'totalProduct', name: 'totalProduct'},
                 {data: 'created_by', name: 'created_by'},
                 {data: 'status', name: 'status'},
                 {data: 'action', name: 'action', orderable: false, seacrhable: false}
             ],
+            columnDefs: [
+                {
+                    "targets": 3,
+                    "className": "text-center",
+                },
+                {
+                    "targets": 4,
+                    "className": "text-center",
+                },
+                {
+                    "targets": 5,
+                    "className": "text-center",
+                },
+                {
+                    "targets": 6,
+                    "className": "text-center",
+                },
+            ]
         });
 
         function delete_category(e) {

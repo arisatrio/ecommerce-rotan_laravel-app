@@ -31,7 +31,7 @@ class ProductCategory extends Model
 
             $model->slug = $count ? "{$slug}-{$count}" : $slug;
             if($count == 0) {
-                $model->user_id  = auth()->user()->id;
+                $model->user_id  = 1;
             }
         });
 
@@ -57,7 +57,6 @@ class ProductCategory extends Model
         return $query->where('id', '!=', $type)->where('parent_id', '!=', $type);
     }
 
-    
     public function parent()
     {
         return $this->hasOne('App\Models\ProductCategory', 'id', 'parent_id');
@@ -66,5 +65,10 @@ class ProductCategory extends Model
     public function createdBy()
     {
         return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function product()
+    {
+        return $this->hasMany('App\Models\Product');
     }
 }

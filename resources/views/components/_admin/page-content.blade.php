@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-12">
 
-                    <div class="card">
+                    <div class="card card-primary card-outline" style="border-top: 3px solid #DEB886;">
                         <div class="card-header">
                             <div class="row">
                                 <h3 class="col-6 card-title">{{ $cardTitle }}</h3>
