@@ -7,16 +7,19 @@
     <!-- Sidebar -->
     <div class="sidebar">
 
-        <!-- SidebarSearch Form -->
-        <div class="form-inline mt-3 d-flex">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                </div>
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
             </div>
+            <div class="info">
+                <a href="{{ route('admin.profile.edit', auth()->user()->id) }}" class="d-block text-uppercase">{{ auth()->user()->name }}</a>
+            </div>
+            <div class="info d-flex ml-auto">
+                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="d-block text-danger"><i class="fas fa-sign-out-alt"></i></a>
+            </div>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
         </div>
 
         <!-- Sidebar Menu -->

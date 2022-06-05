@@ -131,7 +131,11 @@ Route::get('cancel', 'PayPalController@cancel')->name('payment.cancel');
 Route::get('payment/success', 'PayPalController@success')->name('payment.success');
 
 
-Route::group(['prefix'=>'admin', 'as' => 'admin.', 'middleware'=>['auth','admin']],function(){
+Route::group(['prefix'=>'admin', 'as' => 'admin.', 'middleware'=> ['auth', 'admin']],function(){
+    //PROFILE
+    Route::resource('profile', 'Admin\ProfileController')->only(['edit', 'update']);
+    Route::post('password-update/{id}', 'Admin\ChangePasswordController')->name('password-update');
+    //DASHBOARD
 
     //MESSAGES
     Route::resource('message', 'Admin\MessageController')->only(['index', 'show', 'delete']);
@@ -157,8 +161,8 @@ Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
     // })->name('file-manager');
     Route::resource('brand','BrandController');
     // Profile
-    Route::get('/profile','AdminController@profile')->name('admin-profile');
-    Route::post('/profile/{id}','AdminController@profileUpdate')->name('profile-update');
+    // Route::get('/profile','AdminController@profile')->name('admin-profile');
+    // Route::post('/profile/{id}','AdminController@profileUpdate')->name('profile-update');
     // Product
     //Route::resource('/product','ProductController');
     // Ajax for sub category
