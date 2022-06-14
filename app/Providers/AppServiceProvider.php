@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 
 use App\Models\Message;
+use App\Models\Settings;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,11 +31,11 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         $unreadMessages = Message::whereNull('read_at')->get();
-        View::share('unreadMessages', $unreadMessages);
-        // view()->composer('*', function ($view){
-        //     $unreadMessages = Message::whereNull('read_at')->count();
+        $website        = Settings::first();
 
-        //     $view->with('unreadMessages');
-        // });
+        View::share([
+            'unreadMessages' => $unreadMessages, 
+            'website'=> $website,
+        ]);
     }
 }

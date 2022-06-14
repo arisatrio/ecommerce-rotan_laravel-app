@@ -1,11 +1,8 @@
 <section class="small-banner section">
     <div class="container-fluid">
         <div class="row">
-            @php
-            $category_lists=DB::table('categories')->where('status','active')->limit(3)->get();
-            @endphp
-            @if($category_lists)
-                @foreach($category_lists as $cat)
+            @if($category)
+                @foreach($category as $cat)
                     @if($cat->is_parent==1)
                         <!-- Single Banner  -->
                         <div class="col-lg-4 col-md-6 col-12">

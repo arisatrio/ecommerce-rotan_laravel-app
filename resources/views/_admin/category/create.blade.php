@@ -53,6 +53,7 @@
 
                     <div class="form-group">
                         <label for="is_parent">Is Parent</label><br>
+                        <input type="hidden" name="is_parent" value="0">
                         <input type="checkbox" name='is_parent' id='is_parent' value='1' checked> Yes                        
                     </div>
 

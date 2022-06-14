@@ -78,7 +78,7 @@ class Product extends Model
 
     public function productPhotos()
     {
-        return $this->hasMany(ProductPhotos::class);
+        return $this->hasMany(ProductPhotos::class)->where('is_primary', 0);
     }
 
     public function productPhotosPrimary()

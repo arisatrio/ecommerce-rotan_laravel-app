@@ -20,6 +20,7 @@ Route::get('/about-us','User\PagesController@aboutUs')->name('about-us');
 Route::get('/contact-us','User\PagesController@contactUs')->name('contact-us');
 Route::post('/send-message', 'User\SendMessageController')->name('contact.store');
 
+Route::get('/product', 'User\ProductIndexController')->name('product-index');
 
 //PRODUCT
 Route::get('/product-grids','FrontendController@productGrids')->name('product-grids');
@@ -31,28 +32,30 @@ Route::group(['prefix' => 'product', 'as' => 'product-'], function(){
     Route::get('/sub-cat/{slug}/{sub_slug}','FrontendController@productSubCat')->name('sub-cat');
     Route::get('/brand/{slug}','FrontendController@productBrand')->name('brand');
 });
+
 //AUTH ROUTES
 Auth::routes(['register' => false]);
 //USER ROUTES
 Route::group(['prefix' => 'user'], function(){
     //LOGIN
     Route::group(['as' => 'login.'], function(){
-        Route::get('login','FrontendController@login')->name('form');
-        Route::post('login','FrontendController@loginSubmit')->name('submit');
+        Route::get('login','User\LoginController@loginForm')->name('form');
+        Route::post('login','User\LoginController@loginSubmit')->name('submit');
         //SOCIALLITE
         Route::get('login/{provider}/', 'Auth\LoginController@redirect')->name('redirect');
         Route::get('login/{provider}/callback/', 'Auth\LoginController@Callback')->name('callback');
     });
     //REGISTER
     Route::group(['as' => 'register.'], function(){
-        Route::get('register','FrontendController@register')->name('form');
-        Route::post('register','FrontendController@registerSubmit')->name('submit');
+        Route::get('register','User\RegisterController@registerForm')->name('form');
+        Route::post('register','User\RegisterController@registerSubmit')->name('submit');
     });
     //LOGOUT
-    Route::get('logout','FrontendController@logout')->name('user.logout');
+    Route::get('logout','User\LogoutController')->name('user.logout');
 });
 //RESET PASSWORD
-Route::post('password-reset', 'FrontendController@showResetForm')->name('password.reset');
+// Route::post('password-reset', 'FrontendController@showResetForm')->name('password.reset');
+
 //USER LOGGED IN
 Route::group(['middleware' => 'user'], function() {
     //CART
@@ -71,6 +74,8 @@ Route::group(['middleware' => 'user'], function() {
         Route::get('/delete/{id}','WishlistController@wishlistDelete')->name('wishlist-delete');
     });
     //USER
+
+    // CEK
     Route::group(['prefix' => 'user'], function() {
         Route::get('/','HomeController@index')->name('user');
         //PROFILE
@@ -97,6 +102,8 @@ Route::group(['middleware' => 'user'], function() {
 });
 
 
+
+//CEK
 Route::post('cart/order','OrderController@store')->name('cart.order');
 Route::get('order/pdf/{id}','OrderController@pdf')->name('order.pdf');
 Route::get('/income','OrderController@incomeChart')->name('product.order.income');
@@ -105,16 +112,6 @@ Route::match(['get','post'],'/filter','FrontendController@productFilter')->name(
 // Order Track
 Route::get('/product/track','OrderController@orderTrack')->name('order.track');
 Route::post('product/track/order','OrderController@productTrackOrder')->name('product.track.order');
-// Blog
-Route::get('/blog','FrontendController@blog')->name('blog');
-Route::get('/blog-detail/{slug}','FrontendController@blogDetail')->name('blog.detail');
-Route::get('/blog/search','FrontendController@blogSearch')->name('blog.search');
-Route::post('/blog/filter','FrontendController@blogFilter')->name('blog.filter');
-Route::get('blog-cat/{slug}','FrontendController@blogByCategory')->name('blog.category');
-Route::get('blog-tag/{slug}','FrontendController@blogByTag')->name('blog.tag');
-
-// NewsLetter
-Route::post('/subscribe','FrontendController@subscribe')->name('subscribe');
 
 // Product Review
 Route::resource('/review','ProductReviewController');
@@ -123,20 +120,17 @@ Route::post('product/{slug}/review','ProductReviewController@store')->name('revi
 // Post Comment 
 Route::post('post/{slug}/comment','PostCommentController@store')->name('post-comment.store');
 Route::resource('/comment','PostCommentController');
-// Coupon
-Route::post('/coupon-store','CouponController@couponStore')->name('coupon-store');
 // Payment
 Route::get('payment', 'PayPalController@payment')->name('payment');
 Route::get('cancel', 'PayPalController@cancel')->name('payment.cancel');
 Route::get('payment/success', 'PayPalController@success')->name('payment.success');
+//
+
 
 
 Route::group(['prefix'=>'admin', 'as' => 'admin.', 'middleware'=> ['auth', 'admin']],function(){
-    //PROFILE
-    Route::resource('profile', 'Admin\ProfileController')->only(['edit', 'update']);
-    Route::post('password-update/{id}', 'Admin\ChangePasswordController')->name('password-update');
     //DASHBOARD
-
+    Route::get('/', 'Admin\DashboardController')->name('dashboard');
     //MESSAGES
     Route::resource('message', 'Admin\MessageController')->only(['index', 'show', 'delete']);
     //PRODUCT
@@ -149,46 +143,10 @@ Route::group(['prefix'=>'admin', 'as' => 'admin.', 'middleware'=> ['auth', 'admi
     //WEBSITE
     Route::resource('banner','Admin\BannerController');
     Route::resource('settings','Admin\SettingController')->only(['index', 'update']);
+    //PROFILE
+    Route::resource('profile', 'Admin\ProfileController')->only(['edit', 'update']);
+    Route::post('password-update/{id}', 'Admin\ChangePasswordController')->name('password-update');
 });
-
-// Backend section start
-
-Route::group(['prefix'=>'/admin','middleware'=>['auth','admin']],function(){
-    Route::get('/','AdminController@index')->name('admin');
-    Route::get('/home-2','AdminController@index2');
-    // Route::get('/file-manager',function(){
-    //     return view('backend.layouts.file-manager');
-    // })->name('file-manager');
-    Route::resource('brand','BrandController');
-    // Profile
-    // Route::get('/profile','AdminController@profile')->name('admin-profile');
-    // Route::post('/profile/{id}','AdminController@profileUpdate')->name('profile-update');
-    // Product
-    //Route::resource('/product','ProductController');
-    // Ajax for sub category
-    Route::post('/category/{id}/child','CategoryController@getChildByParent');
-    // POST category
-    Route::resource('/post-category','PostCategoryController');
-    // // Post tag
-    // Route::resource('/post-tag','PostTagController');
-    // // Post
-    // Route::resource('/post','PostController');
-    // Message
-    //Route::resource('/message','MessageController');
-    Route::get('/message/five','MessageController@messageFive')->name('messages.five');
-
-    // Order
-    Route::resource('/order','OrderController');
-
-    // Notification
-    Route::get('/notification/{id}','NotificationController@show')->name('admin.notification');
-    Route::get('/notifications','NotificationController@index')->name('all.notification');
-    Route::delete('/notification/{id}','NotificationController@delete')->name('notification.delete');
-    // Password Change
-    Route::get('change-password', 'AdminController@changePassword')->name('change.password.form');
-    Route::post('change-password', 'AdminController@changPasswordStore')->name('change.password');
-});
-
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();

@@ -1,4 +1,4 @@
-@extends('frontend.layouts.master')
+@extends('layouts.app')
 
 @section('title','HOME PAGE')
 
@@ -13,7 +13,7 @@
     <!-- Most Selling -->
     @include('components.item-latest')
     <!-- Recommendation  -->
-    @include('components.item-recommendation')
+    {{-- @include('components.item-recommendation') --}}
     <!-- Start Shop Services Area -->
     <section class="shop-services section home">
         <div class="container">

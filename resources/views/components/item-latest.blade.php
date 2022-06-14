@@ -11,18 +11,12 @@
             <div class="col-12">
                 <div class="owl-carousel popular-slider">
                     @foreach($products as $product)
-                        @if($product->condition=='hot')
                             <!-- Start Single Product -->
                         <div class="single-product">
                             <div class="product-img">
-                                <a href="{{route('product-detail',$product->slug)}}">
-                                    @php
-                                        $photo=explode(',',$product->photo);
-                                    // dd($photo);
-                                    @endphp
-                                    <img class="default-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                    <img class="hover-img" src="{{$photo[0]}}" alt="{{$photo[0]}}">
-                                    {{-- <span class="out-of-stock">Hot</span> --}}
+                                <a href="{{ route('product-detail', $product->slug)}}">
+                                    <img class="default-img" src="{{ $product->productPhotosPrimary->photo }}" alt="">
+                                    <img class="hover-img" src="{{ $product->productPhotosPrimary->photo }}" alt="">
                                 </a>
                                 <div class="button-head">
                                     <div class="product-action">
@@ -35,18 +29,18 @@
                                 </div>
                             </div>
                             <div class="product-content">
-                                <h3><a href="{{route('product-detail',$product->slug)}}">{{$product->title}}</a></h3>
+                                <h3><a href="{{ route('product-detail', $product->slug)}}" class="text-uppercase">{{ $product->name }}</a></h3>
                                 <div class="product-price">
-                                    <span class="old">${{number_format($product->price,2)}}</span>
-                                    @php
-                                    $after_discount=($product->price-($product->price*$product->discount)/100)
-                                    @endphp
-                                    <span>${{number_format($after_discount,2)}}</span>
+                                    @if ($product->getAttributes()['discount'] != NULL)
+                                        <span class="old">{{ $product->price }}</span>
+                                        <span class="badge badge-danger">{{ $product->discount }}</span>
+                                        <br>
+                                    @endif
+                                    <span>{{ $product->discountPrice }}</span>
                                 </div>
                             </div>
                         </div>
                         <!-- End Single Product -->
-                        @endif
                     @endforeach
                 </div>
             </div>

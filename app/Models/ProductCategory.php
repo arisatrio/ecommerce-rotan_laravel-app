@@ -57,9 +57,19 @@ class ProductCategory extends Model
         return $query->where('id', '!=', $type)->where('parent_id', '!=', $type);
     }
 
+    public function scopeParent($query)
+    {
+        return $query->where('is_parent', 1);
+    }
+
     public function parent()
     {
         return $this->hasOne('App\Models\ProductCategory', 'id', 'parent_id');
+    }
+
+    public function child()
+    {
+        return $this->hasMany('App\Models\ProductCategory', 'parent_id')->where('parent_id', '!=', $this->id);
     }
 
     public function createdBy()

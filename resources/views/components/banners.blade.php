@@ -2,12 +2,11 @@
     <section id="Gslider" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             @foreach($banners as $key=>$banner)
-        <li data-target="#Gslider" data-slide-to="{{$key}}" class="{{(($key==0)? 'active' : '')}}"></li>
+                <li data-target="#Gslider" data-slide-to="{{$key}}" class="{{(($key==0)? 'active' : '')}}"></li>
             @endforeach
-
         </ol>
         <div class="carousel-inner" role="listbox">
-                @foreach($banners as $key=>$banner)
+            @foreach($banners as $key=>$banner)
                 <div class="carousel-item {{(($key==0)? 'active' : '')}}">
                     <img class="first-slide" src="{{$banner->photo}}" alt="First slide">
                     <div class="carousel-caption d-none d-md-block text-left">
@@ -19,12 +18,12 @@
             @endforeach
         </div>
         <a class="carousel-control-prev" href="#Gslider" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
         </a>
         <a class="carousel-control-next" href="#Gslider" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
         </a>
     </section>
 @endif

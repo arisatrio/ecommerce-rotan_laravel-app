@@ -8,16 +8,13 @@
 					<div class="col-lg-5 col-md-6 col-12">
 						<!-- Single Widget -->
 						<div class="single-footer about">
-							@php
-								$setting = DB::table('settings')->take(1)->first();
-							@endphp
 							<div class="logo">
 								<a href="{{route('home')}}">
-									<img src="{{ $setting->logo }}" alt="logo" style="height: 25%; width: 25%;">
+									<img src="{{ $website->logo }}" alt="logo" style="height: 25%; width: 25%;">
 								</a>
 							</div>
-							<p class="text">{{ $setting->short_des }}</p>
-							<p class="call">Hubungi Kami<span><a href="tel:{{ $setting->phone }}">{{ $setting->phone }}</a></span></p>
+							<p class="text">{{ $website->short_des }}</p>
+							<p class="call">Hubungi Kami<span><a href="tel:{{ $website->phone }}">{{ $website->phone }}</a></span></p>
 						</div>
 						<!-- End Single Widget -->
 					</div>
@@ -39,9 +36,9 @@
 							<!-- Single Widget -->
 							<div class="contact">
 								<ul>
-									<li>{{ $setting->address }}</li>
-									<li>{{ $setting->email }}</li>
-									<li>{{ $setting->phone }}</li>
+									<li>{{ $website->address }}</li>
+									<li>{{ $website->email }}</li>
+									<li>{{ $website->phone }}</li>
 								</ul>
 							</div>
 							<!-- End Single Widget -->
