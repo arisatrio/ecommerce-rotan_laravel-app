@@ -43,6 +43,12 @@
                         <p>Pesan</p> @if($unreadMessages->count() > 0)<span class="badge badge-danger">{{ $unreadMessages->count() }}</span>@endif
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.clustering.index') }}" class="nav-link {{  Route::is('admin.clustering.*') ? 'active' : ''  }}">
+                        <i class="nav-icon fas fa-chart-area"></i>
+                        <p>Clustering</p>
+                    </a>
+                </li>
 
                 <li class="nav-header">TRANSAKSI</li>
                 <li class="nav-item">

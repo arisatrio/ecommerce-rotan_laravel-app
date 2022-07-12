@@ -1,6 +1,6 @@
 @extends('layouts.App')
 
-@section('title', "$website->short_des | Login Page")
+@section('title', "$website->short_des | Login")
 
 @section('main-content')
     <!-- Breadcrumbs -->
@@ -53,10 +53,6 @@
                                     <div class="form-group login-btn">
                                         <button class="btn" type="submit">Masuk</button>
                                         <a href="{{route('register.form')}}" class="btn">Daftar</a>
-                                        OR
-                                        <a href="{{route('login.redirect','facebook')}}" class="btn btn-facebook"><i class="ti-facebook"></i></a>
-                                        <a href="{{route('login.redirect','google')}}" class="btn btn-google"><i class="ti-google"></i></a>
-
                                     </div>
                                     <div class="checkbox">
                                         <label class="checkbox-inline" for="2"><input name="news" id="2" type="checkbox">Ingat saya</label>

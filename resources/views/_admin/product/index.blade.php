@@ -30,7 +30,7 @@
                     <x-_admin.datatables>
                         @slot('columns')
                             <th>Nama Produk</th>
-                            <th>Foto</th>
+                            <th style="width: 20%">Foto</th>
                             <th>Stok</th>
                             <th>Harga</th>
                             <th>Harga Diskon</th>

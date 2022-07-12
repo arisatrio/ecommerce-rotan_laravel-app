@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->text('summary');
             $table->longText('description');
             $table->integer('stock')->default(0);
-            $table->float('price');
+            $table->string('price');
             $table->float('discount')->nullable();
             $table->string('dimension')->nullable();
             $table->boolean('is_featured')->default(false);

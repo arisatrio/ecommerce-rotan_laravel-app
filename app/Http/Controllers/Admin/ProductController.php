@@ -28,7 +28,7 @@ class ProductController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('photo', function ($row) {
-                    return '<img src="'.$row->productPhotosPrimary->photo.'" class="img-circle" alt="User Image" style="height: 30px; width: 30px;">';
+                    return '<img src="'.$row->productPhotosPrimary->photo.'" class="img-rounded" alt="User Image" style="max-height: 100px; max-width: 100px;">';
                 })
                 ->addColumn('discount', function ($row) {
                     return $row->discountPrice.'<span class="badge badge-danger ml-2">'.$row->discount.'</span>';
