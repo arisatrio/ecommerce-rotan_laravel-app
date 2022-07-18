@@ -17,6 +17,7 @@ class CreateCartsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('product_id')->constrained()->cascadeOnDelete();
+            $table->unsignedInteger('order_id')->nullable();
             $table->integer('quantity');
             $table->integer('amount');
             $table->string('price');

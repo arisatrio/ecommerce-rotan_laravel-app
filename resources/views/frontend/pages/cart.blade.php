@@ -1,5 +1,5 @@
-@extends('frontend.layouts.master')
-@section('title','Cart Page')
+@extends('layouts.app')
+@section('title','Cart')
 @section('main-content')
 	<!-- Breadcrumbs -->
 	<div class="breadcrumbs">
@@ -105,11 +105,11 @@
 							<div class="col-lg-8 col-md-5 col-12">
 								<div class="left">
 									<div class="coupon">
-									<form action="{{route('coupon-store')}}" method="POST">
+									{{-- <form action="{{route('coupon-store')}}" method="POST">
 											@csrf
 											<input name="code" placeholder="Enter Your Coupon">
 											<button class="btn">Apply</button>
-										</form>
+										</form> --}}
 									</div>
 									{{-- <div class="checkbox">`
 										@php
@@ -122,7 +122,7 @@
 							<div class="col-lg-4 col-md-7 col-12">
 								<div class="right">
 									<ul>
-										<li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Cart Subtotal<span>${{number_format(Helper::totalCartPrice(),2)}}</span></li>
+										{{-- <li class="order_subtotal" data-price="{{Helper::totalCartPrice()}}">Cart Subtotal<span>${{number_format(Helper::totalCartPrice(),2)}}</span></li>
 
 										@if(session()->has('coupon'))
 										<li class="coupon_price" data-price="{{Session::get('coupon')['value']}}">You Save<span>${{number_format(Session::get('coupon')['value'],2)}}</span></li>
@@ -137,11 +137,11 @@
 											<li class="last" id="order_total_price">You Pay<span>${{number_format($total_amount,2)}}</span></li>
 										@else
 											<li class="last" id="order_total_price">You Pay<span>${{number_format($total_amount,2)}}</span></li>
-										@endif
+										@endif --}}
 									</ul>
 									<div class="button5">
-										<a href="{{route('checkout')}}" class="btn">Checkout</a>
-										<a href="{{route('product-grids')}}" class="btn">Continue shopping</a>
+										{{-- <a href="{{route('checkout')}}" class="btn">Checkout</a>
+										<a href="{{route('product-grids')}}" class="btn">Continue shopping</a> --}}
 									</div>
 								</div>
 							</div>
@@ -200,7 +200,7 @@
 	<!-- End Shop Newsletter -->
 
 	<!-- Start Shop Newsletter  -->
-	@include('frontend.layouts.newsletter')
+	
 	<!-- End Shop Newsletter -->
 
 @endsection
@@ -253,19 +253,6 @@
 	<script>
 		$(document).ready(function() { $("select.select2").select2(); });
   		$('select.nice-select').niceSelect();
-	</script>
-	<script>
-		$(document).ready(function(){
-			$('.shipping select[name=shipping]').change(function(){
-				let cost = parseFloat( $(this).find('option:selected').data('price') ) || 0;
-				let subtotal = parseFloat( $('.order_subtotal').data('price') );
-				let coupon = parseFloat( $('.coupon_price').data('price') ) || 0;
-				// alert(coupon);
-				$('#order_total_price span').text('$'+(subtotal + cost-coupon).toFixed(2));
-			});
-
-		});
-
 	</script>
 
 @endpush

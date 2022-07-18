@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 
 use App\Models\Message;
 use App\Models\Settings;
+use App\Models\Order;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,10 +33,12 @@ class AppServiceProvider extends ServiceProvider
 
         $unreadMessages = Message::whereNull('read_at')->get();
         $website        = Settings::first();
+        $newOrder       = Order::where('status', 'new')->get()->count();
 
         View::share([
             'unreadMessages' => $unreadMessages, 
             'website'=> $website,
+            'newOrder'  => $newOrder,
         ]);
     }
 }

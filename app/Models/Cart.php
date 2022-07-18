@@ -14,17 +14,13 @@ class Cart extends Model
         'price',
     ];
     
-    // public function product(){
-    //     return $this->hasOne('App\Models\Product','id','product_id');
-    // }
-    // public static function getAllProductFromCart(){
-    //     return Cart::with('product')->where('user_id',auth()->user()->id)->get();
-    // }
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
-    public function order(){
-        return $this->belongsTo(Order::class,'order_id');
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
     }
 }

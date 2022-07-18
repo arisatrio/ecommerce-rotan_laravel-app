@@ -51,16 +51,21 @@
                 </li>
 
                 <li class="nav-header">TRANSAKSI</li>
-                <li class="nav-item">
+                <li class="nav-item menu-open">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
-                        <p>Pesanan <i class="fas fa-angle-left right"></i></p>
+                        <p>
+                            Pesanan 
+                            <i class="fas fa-angle-left right"></i>
+                            <span class="badge badge-danger">{{ $newOrder }}</span>
+                        </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('admin.users.index') }}" class="nav-link">
+                            <a href="{{ route('admin.order-new') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Baru</p>
+                                <span class="badge badge-danger">{{ $newOrder }}</span>
                             </a>
                         </li>
                     </ul>
@@ -81,7 +86,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ route('admin.users.index') }}" class="nav-link">
                       <i class="nav-icon fas fa-shipping-fast"></i>
                       <p>Pengiriman</p>
@@ -92,7 +97,7 @@
                       <i class="nav-icon fas fa-comments"></i>
                       <p>Ulasan</p>
                     </a>
-                </li>
+                </li> --}}
 
                 <li class="nav-header">MASTER DATA</li>
                 <li class="nav-item">

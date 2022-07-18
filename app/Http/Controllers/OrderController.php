@@ -56,7 +56,7 @@ class OrderController extends Controller
         ]);
         // return $request->all();
 
-        if(empty(Cart::where('user_id',auth()->user()->id)->where('order_id',null)->first())){
+        if(empty(Cart::where('user_id',auth()->user()->id)->first())){
             request()->session()->flash('error','Cart is Empty !');
             return back();
         }
@@ -93,7 +93,7 @@ class OrderController extends Controller
         $order_data['order_number']='ORD-'.strtoupper(Str::random(10));
         $order_data['user_id']=$request->user()->id;
         $order_data['shipping_id']=$request->shipping;
-        $shipping=Shipping::where('id',$order_data['shipping_id'])->pluck('price');
+        $shipping=Shipping::where('id',$order_data['shipping_id'])->first();
         // return session('coupon')['value'];
         $order_data['sub_total']=Helper::totalCartPrice();
         $order_data['quantity']=Helper::cartCount();
@@ -101,20 +101,10 @@ class OrderController extends Controller
             $order_data['coupon']=session('coupon')['value'];
         }
         if($request->shipping){
-            if(session('coupon')){
-                $order_data['total_amount']=Helper::totalCartPrice()+$shipping[0]-session('coupon')['value'];
-            }
-            else{
-                $order_data['total_amount']=Helper::totalCartPrice()+$shipping[0];
-            }
+            $order_data['total_amount']=Helper::totalCartPrice()+$shipping->getAttributes()['price'];
         }
         else{
-            if(session('coupon')){
-                $order_data['total_amount']=Helper::totalCartPrice()-session('coupon')['value'];
-            }
-            else{
-                $order_data['total_amount']=Helper::totalCartPrice();
-            }
+            $order_data['total_amount']=Helper::totalCartPrice();
         }
         // return $order_data['total_amount'];
         $order_data['status']="new";
@@ -133,10 +123,9 @@ class OrderController extends Controller
         $users=User::where('role','admin')->first();
         $details=[
             'title'=>'New order created',
-            'actionURL'=>route('order.show',$order->id),
             'fas'=>'fa-file-alt'
         ];
-        Notification::send($users, new StatusNotification($details));
+        // Notification::send($users, new StatusNotification($details));
         if(request('payment_method')=='paypal'){
             return redirect()->route('payment')->with(['id'=>$order->id]);
         }
@@ -144,10 +133,9 @@ class OrderController extends Controller
             session()->forget('cart');
             session()->forget('coupon');
         }
-        Cart::where('user_id', auth()->user()->id)->where('order_id', null)->update(['order_id' => $order->id]);
+        Cart::where('user_id', auth()->user()->id)->update(['order_id' => $order->id]);
 
-        // dd($users);        
-        request()->session()->flash('success','Your product successfully placed in order');
+        request()->session()->flash('success','Pesanan anda berhasil dibuat');
         return redirect()->route('home');
     }
 

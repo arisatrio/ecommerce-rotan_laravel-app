@@ -21,7 +21,7 @@
                                 @if(Auth::user()->role=='admin')
                                     <li><i class="ti-user"></i> <a href="{{ route('admin.dashboard' )}}"  target="_blank">Dashboard</a></li>
                                 @else 
-                                    <li><i class="ti-user"></i> <a href="{{ route( 'user') }}"  target="_blank">Dashboard</a></li>
+                                    <li><i class="ti-user"></i> <a href="{{ route( 'pesanan') }}"  target="_blank">Pesanan</a></li>
                                 @endif
                                 <li><i class="ti-power-off"></i> <a href="{{ route('user.logout' )}}">Keluar</a></li>
 
@@ -79,52 +79,15 @@
                         </div>
                     </div>
                 </div>
+                @auth
                 <div class="col-lg-2 col-md-3 col-12">
                     <div class="right-bar">
                         <div class="sinlge-bar">
-                            <a href="#" class="single-icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
-                        </div>
-                        <div class="sinlge-bar shopping">
-                            <!-- Shopping Item -->
-                            @auth
-                                <div class="shopping-item">
-                                    <div class="dropdown-cart-header">
-                                        {{-- <span>{{count(Helper::getAllProductFromCart())}} Items</span> --}}
-                                        <a href="{{route('cart')}}">View Cart</a>
-                                    </div>
-                                    <ul class="shopping-list">
-                                        {{-- {{Helper::getAllProductFromCart()}} --}}
-                                            {{-- @foreach(Helper::getAllProductFromCart() as $data)
-                                                    @php
-                                                        $photo=explode(',',$data->product['photo']);
-                                                    @endphp
-                                                    <li>
-                                                        <a href="{{route('cart.delete',$data->id)}}" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                                        <a class="cart-img" href="#"><img src="{{$photo[0]}}" alt="{{$photo[0]}}"></a>
-                                                        <h4><a href="{{route('product-detail',$data->product['slug'])}}" target="_blank">{{$data->product['title']}}</a></h4>
-                                                        <p class="quantity">{{$data->quantity}} x - <span class="amount">${{number_format($data->price,2)}}</span></p>
-                                                    </li>
-                                            @endforeach --}}
-                                            <li>
-                                                <a href="#" class="remove" title="Remove this item"><i class="fa fa-remove"></i></a>
-                                                <a class="cart-img" href="#"><img src=""></a>
-                                                <h4><a href="#" target="_blank"></a></h4>
-                                                <p class="quantity">2 x - <span class="amount">$</span></p>
-                                            </li>
-                                    </ul>
-                                    <div class="bottom">
-                                        <div class="total">
-                                            <span>Total</span>
-                                            {{-- <span class="total-amount">${{number_format(Helper::totalCartPrice(),2)}}</span> --}}
-                                        </div>
-                                        <a href="{{route('checkout')}}" class="btn animate">Checkout</a>
-                                    </div>
-                                </div>
-                            @endauth
-                            <!--/ End Shopping Item -->
+                            <a href="{{ route('cart.index') }}" class="single-icon"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <small>{{ auth()->user()->cart()->count() }}</small></a>
                         </div>
                     </div>
                 </div>
+                @endauth
             </div>
         </div>
     </div>

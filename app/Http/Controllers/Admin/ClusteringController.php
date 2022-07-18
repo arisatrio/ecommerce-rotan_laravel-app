@@ -8,35 +8,38 @@ use Yajra\DataTables\DataTables;
 
 use App\Models\Product;
 use Phpml\Clustering\KMeans;
+use Phpml\Math\Distance\Euclidean;
 
 class ClusteringController extends Controller
 {
     public function index(Request $request)
-    {
-        // $samples = [ 'Barang 1' => [1, 1], 'Barang 2' => [8, 7], 'Barang 3' => [1, 2], 'Barang 4' => [10, 11]];
-        // $kmeans = new KMeans(2);
-        // $cek = $kmeans->cluster($samples);
-        // dd($cek);
-        if($request->ajax()) {
-            $data = Product::active()->get();
+    {   
+        $data = Product::with(['transaksi', 'penjualan'])->active()->get();
 
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->addColumn('transaksi', function ($row) {
-                    return '-';
-                })
-                ->addColumn('penjualan', function ($row) {
-                    return '-';
-                })
-                ->addColumn('cluster', function ($row) {
-                    return '-';
-                })
-                ->addColumn('action', function ($row) {
-                    return '-';
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+        foreach($data as $key => $d) {
+            $samples[$d->name] = [$d->transaksi->count(), $d->penjualan->sum('quantity')];
         }
-        return view('_admin.clustering.index');
+        $kmeans = new KMeans(2);
+        $cluster = $kmeans->cluster($samples);
+        
+        foreach($cluster as $key => $c) {
+            $clustering['C'.$key+1] = collect($c);
+        }
+
+        $euclidean = new Euclidean();
+        foreach($clustering as $cluster => $data) {
+            $randomCentroid[$cluster] = $data->random();
+        }
+         //dd($distance);
+        //dd($clustering);
+
+        // $a = [5, 7];
+        // $b = [3, 5]; 
+        
+        $euclidean = new Euclidean();
+        // dd($euclidean->distance($a, $b));
+        
+
+        return view('_admin.clustering.index', compact('clustering', 'randomCentroid', 'euclidean'));
     }
 }

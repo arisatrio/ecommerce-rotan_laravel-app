@@ -86,4 +86,18 @@ class Product extends Model
         return $this->hasOne(ProductPhotos::class)->where('is_primary', 1)->latest();
     }
     
+    public function cart()
+    {
+        return $this->hasMany(Cart::class, 'product_id');
+    }
+
+    public function transaksi()
+    {
+        return $this->cart();
+    }
+
+    public function penjualan()
+    {
+        return $this->cart()->whereNotNull('order_id');
+    }
 }
